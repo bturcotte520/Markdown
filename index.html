@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Markdown Editor</title>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            height: 100vh;
+            overflow: hidden;
+            background: #1e1e1e;
+        }
+
+        .header {
+            background: #2d2d2d;
+            color: #fff;
+            padding: 12px 20px;
+            font-size: 16px;
+            font-weight: 600;
+            border-bottom: 1px solid #3d3d3d;
+        }
+
+        .container {
+            display: flex;
+            height: calc(100vh - 50px);
+        }
+
+        .pane {
+            flex: 1;
+            height: 100%;
+            overflow: auto;
+        }
+
+        .editor-pane {
+            border-right: 1px solid #3d3d3d;
+        }
+
+        #markdown-input {
+            width: 100%;
+            height: 100%;
+            background: #1e1e1e;
+            color: #d4d4d4;
+            border: none;
+            padding: 20px;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+            resize: none;
+            outline: none;
+        }
+
+        #markdown-input::placeholder {
+            color: #6a6a6a;
+        }
+
+        .preview-pane {
+            background: #f5f5f5;
+        }
+
+        #preview {
+            padding: 20px;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        #preview h1,
+        #preview h2,
+        #preview h3,
+        #preview h4,
+        #preview h5,
+        #preview h6 {
+            margin-top: 1em;
+            margin-bottom: 0.5em;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+
+        #preview h1 { font-size: 2em; border-bottom: 1px solid #e0e0e0; padding-bottom: 0.3em; }
+        #preview h2 { font-size: 1.5em; border-bottom: 1px solid #e0e0e0; padding-bottom: 0.3em; }
+        #preview h3 { font-size: 1.25em; }
+        #preview p { margin-bottom: 1em; }
+        #preview ul,
+        #preview ol { margin-bottom: 1em; padding-left: 2em; }
+        #preview li { margin-bottom: 0.5em; }
+        #preview code {
+            background: #e8e8e8;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 0.9em;
+        }
+        #preview pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin-bottom: 1em;
+        }
+        #preview pre code {
+            background: none;
+            padding: 0;
+            color: inherit;
+        }
+        #preview blockquote {
+            border-left: 4px solid #007acc;
+            padding-left: 15px;
+            margin: 1em 0;
+            color: #666;
+        }
+        #preview a {
+            color: #007acc;
+            text-decoration: none;
+        }
+        #preview a:hover {
+            text-decoration: underline;
+        }
+        #preview img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+        #preview table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 1em;
+        }
+        #preview th,
+        #preview td {
+            border: 1px solid #ddd;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        #preview th {
+            background: #f0f0f0;
+            font-weight: 600;
+        }
+        #preview hr {
+            border: none;
+            border-top: 1px solid #ddd;
+            margin: 2em 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">Markdown Editor</div>
+    <div class="container">
+        <div class="pane editor-pane">
+            <textarea id="markdown-input" placeholder="Type your Markdown here..."># Welcome to Markdown Editor
+
+Start typing in this left pane and see the rendered output on the right.
+
+## Features
+
+- **Live preview** - Changes appear instantly
+- **Full Markdown support** - Headings, lists, code blocks, and more
+- **Clean design** - Easy on the eyes
+
+## Try it out!
+
+### Code example:
+
+```javascript
+function greet(name) {
+    console.log(`Hello, ${name}!`);
+}
+```
+
+### Links and Images:
+
+[Visit GitHub](https://github.com)
+
+---
+
+> "The only way to learn a new programming language is by writing programs in it." - Dennis Ritchie</textarea>
+        </div>
+        <div class="pane preview-pane">
+            <div id="preview"></div>
+        </div>
+    </div>
+
+    <script>
+        const markdownInput = document.getElementById('markdown-input');
+        const preview = document.getElementById('preview');
+
+        function renderMarkdown() {
+            const markdown = markdownInput.value;
+            preview.innerHTML = marked.parse(markdown);
+        }
+
+        // Initial render
+        renderMarkdown();
+
+        // Live preview on input
+        markdownInput.addEventListener('input', renderMarkdown);
+    </script>
+</body>
+</html>
