@@ -26,6 +26,18 @@
             font-size: 16px;
             font-weight: 600;
             border-bottom: 1px solid #3d3d3d;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .char-counter {
+            font-size: 14px;
+            color: #888;
+        }
+
+        .char-counter.warning {
+            color: #ff9800;
         }
 
         .container {
@@ -151,7 +163,10 @@
     </style>
 </head>
 <body>
-    <div class="header">Markdown Editor</div>
+    <div class="header">
+        <span>Markdown Editor</span>
+        <span id="char-counter" class="char-counter">Characters: 0</span>
+    </div>
     <div class="container">
         <div class="pane editor-pane">
             <textarea id="markdown-input" placeholder="Type your Markdown here..."># Welcome to Markdown Editor
@@ -190,17 +205,34 @@ function greet(name) {
     <script>
         const markdownInput = document.getElementById('markdown-input');
         const preview = document.getElementById('preview');
+        const charCounter = document.getElementById('char-counter');
 
         function renderMarkdown() {
             const markdown = markdownInput.value;
             preview.innerHTML = marked.parse(markdown);
         }
 
+        function updateCharCounter() {
+            const count = markdownInput.value.length;
+            charCounter.textContent = 'Characters: ' + count;
+            
+            // Bug: comparing string to number without proper type conversion
+            if (count > '1000') {
+                charCounter.classList.add('warning');
+            } else {
+                charCounter.classList.remove('warning');
+            }
+        }
+
         // Initial render
         renderMarkdown();
+        updateCharCounter();
 
         // Live preview on input
-        markdownInput.addEventListener('input', renderMarkdown);
+        markdownInput.addEventListener('input', function() {
+            renderMarkdown();
+            updateCharCounter();
+        });
     </script>
 </body>
 </html>
