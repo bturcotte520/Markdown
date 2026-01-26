@@ -12,75 +12,236 @@
             box-sizing: border-box;
         }
 
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        @keyframes glow {
+            0%, 100% { 
+                box-shadow: 0 0 5px rgba(102, 126, 234, 0.3),
+                            0 0 10px rgba(102, 126, 234, 0.2),
+                            0 0 15px rgba(102, 126, 234, 0.1);
+            }
+            50% { 
+                box-shadow: 0 0 10px rgba(102, 126, 234, 0.5),
+                            0 0 20px rgba(102, 126, 234, 0.3),
+                            0 0 30px rgba(102, 126, 234, 0.2);
+            }
+        }
+
+        @keyframes borderGlow {
+            0%, 100% { 
+                border-color: rgba(102, 126, 234, 0.4);
+                box-shadow: 0 0 10px rgba(102, 126, 234, 0.2),
+                            inset 0 0 10px rgba(102, 126, 234, 0.1);
+            }
+            50% { 
+                border-color: rgba(118, 75, 162, 0.6);
+                box-shadow: 0 0 20px rgba(118, 75, 162, 0.4),
+                            inset 0 0 20px rgba(118, 75, 162, 0.2);
+            }
+        }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
             height: 100vh;
             overflow: hidden;
-            background: #1e1e1e;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            transition: all 0.5s ease;
+        }
+
+        body.light-theme {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            background-size: 400% 400%;
         }
 
         .header {
-            background: #2d2d2d;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             color: #fff;
-            padding: 12px 20px;
-            font-size: 16px;
-            font-weight: 600;
-            border-bottom: 1px solid #3d3d3d;
+            padding: 16px 24px;
+            font-size: 18px;
+            font-weight: 700;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             display: flex;
             justify-content: space-between;
             align-items: center;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+            letter-spacing: 0.5px;
+            transition: all 0.5s ease;
+        }
+
+        .light-theme .header {
+            background: rgba(255, 255, 255, 0.7);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            color: #333;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .header span:first-child {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 20px;
+        }
+
+        .theme-toggle {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            padding: 8px 16px;
+            color: #fff;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            animation: glow 3s ease-in-out infinite;
+        }
+
+        .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+        }
+
+        .light-theme .theme-toggle {
+            background: rgba(102, 126, 234, 0.1);
+            border: 2px solid rgba(102, 126, 234, 0.3);
+            color: #667eea;
+        }
+
+        .light-theme .theme-toggle:hover {
+            background: rgba(102, 126, 234, 0.2);
         }
 
         .char-counter {
-            font-size: 14px;
-            color: #888;
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.6);
+            padding: 6px 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .light-theme .char-counter {
+            color: rgba(0, 0, 0, 0.6);
+            background: rgba(0, 0, 0, 0.05);
         }
 
         .char-counter.warning {
-            color: #ff9800;
+            color: #ffd700;
+            background: rgba(255, 215, 0, 0.15);
+            animation: pulse 2s ease-in-out infinite;
         }
 
         .container {
             display: flex;
-            height: calc(100vh - 50px);
+            height: calc(100vh - 66px);
+            gap: 2px;
+            padding: 2px;
         }
 
         .pane {
             flex: 1;
             height: 100%;
             overflow: auto;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            animation: fadeIn 0.6s ease-out;
+            border: 2px solid rgba(102, 126, 234, 0.4);
+            animation: fadeIn 0.6s ease-out, borderGlow 3s ease-in-out infinite;
+            transition: all 0.5s ease;
+        }
+
+        .light-theme .pane {
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
         }
 
         .editor-pane {
-            border-right: 1px solid #3d3d3d;
+            background: rgba(30, 30, 30, 0.6);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .light-theme .editor-pane {
+            background: rgba(255, 255, 255, 0.8);
         }
 
         #markdown-input {
             width: 100%;
             height: 100%;
-            background: #1e1e1e;
-            color: #d4d4d4;
+            background: transparent;
+            color: #e0e0e0;
             border: none;
-            padding: 20px;
+            padding: 24px;
             font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-            font-size: 14px;
-            line-height: 1.6;
+            font-size: 15px;
+            line-height: 1.7;
             resize: none;
             outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .light-theme #markdown-input {
+            color: #2c3e50;
+        }
+
+        #markdown-input:focus {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .light-theme #markdown-input:focus {
+            background: rgba(102, 126, 234, 0.03);
         }
 
         #markdown-input::placeholder {
-            color: #6a6a6a;
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        .light-theme #markdown-input::placeholder {
+            color: rgba(0, 0, 0, 0.3);
         }
 
         .preview-pane {
-            background: #f5f5f5;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        .light-theme .preview-pane {
+            background: rgba(255, 255, 255, 0.95);
         }
 
         #preview {
-            padding: 20px;
-            line-height: 1.6;
-            color: #333;
+            padding: 24px;
+            line-height: 1.7;
+            color: #2c3e50;
+            animation: fadeIn 0.4s ease-out;
         }
 
         #preview h1,
@@ -89,82 +250,182 @@
         #preview h4,
         #preview h5,
         #preview h6 {
-            margin-top: 1em;
-            margin-bottom: 0.5em;
-            font-weight: 600;
-            color: #1a1a1a;
+            margin-top: 1.5em;
+            margin-bottom: 0.7em;
+            font-weight: 700;
+            color: #1a1a2e;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
-        #preview h1 { font-size: 2em; border-bottom: 1px solid #e0e0e0; padding-bottom: 0.3em; }
-        #preview h2 { font-size: 1.5em; border-bottom: 1px solid #e0e0e0; padding-bottom: 0.3em; }
-        #preview h3 { font-size: 1.25em; }
-        #preview p { margin-bottom: 1em; }
+        #preview h1 { 
+            font-size: 2.5em; 
+            border-bottom: 3px solid transparent;
+            border-image: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            border-image-slice: 1;
+            padding-bottom: 0.4em;
+        }
+        #preview h2 { 
+            font-size: 2em; 
+            border-bottom: 2px solid transparent;
+            border-image: linear-gradient(90deg, #667eea 0%, #764ba2 50%);
+            border-image-slice: 1;
+            padding-bottom: 0.3em;
+        }
+        #preview h3 { font-size: 1.5em; }
+        #preview p { 
+            margin-bottom: 1.2em;
+            text-align: justify;
+        }
         #preview ul,
-        #preview ol { margin-bottom: 1em; padding-left: 2em; }
-        #preview li { margin-bottom: 0.5em; }
+        #preview ol { 
+            margin-bottom: 1.2em; 
+            padding-left: 2em; 
+        }
+        #preview li { 
+            margin-bottom: 0.6em;
+            position: relative;
+        }
+        #preview ul li::marker {
+            color: #667eea;
+        }
         #preview code {
-            background: #e8e8e8;
-            padding: 2px 6px;
-            border-radius: 3px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+            padding: 3px 8px;
+            border-radius: 5px;
             font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
             font-size: 0.9em;
+            color: #764ba2;
+            border: 1px solid rgba(102, 126, 234, 0.2);
         }
         #preview pre {
-            background: #2d2d2d;
+            background: linear-gradient(135deg, #2d2d44 0%, #1a1a2e 100%);
             color: #f8f8f2;
-            padding: 15px;
-            border-radius: 5px;
+            padding: 20px;
+            border-radius: 12px;
             overflow-x: auto;
-            margin-bottom: 1em;
+            margin-bottom: 1.2em;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(102, 126, 234, 0.2);
         }
         #preview pre code {
             background: none;
             padding: 0;
             color: inherit;
+            border: none;
         }
         #preview blockquote {
-            border-left: 4px solid #007acc;
-            padding-left: 15px;
-            margin: 1em 0;
-            color: #666;
+            border-left: 5px solid #667eea;
+            padding-left: 20px;
+            margin: 1.5em 0;
+            color: #555;
+            font-style: italic;
+            background: linear-gradient(90deg, rgba(102, 126, 234, 0.05), transparent);
+            padding: 15px 20px;
+            border-radius: 0 8px 8px 0;
         }
         #preview a {
-            color: #007acc;
+            color: #667eea;
             text-decoration: none;
+            position: relative;
+            transition: all 0.3s ease;
+            font-weight: 500;
         }
-        #preview a:hover {
-            text-decoration: underline;
+        #preview a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transition: width 0.3s ease;
+        }
+        #preview a:hover::after {
+            width: 100%;
         }
         #preview img {
             max-width: 100%;
             height: auto;
-            border-radius: 5px;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease;
+        }
+        #preview img:hover {
+            transform: scale(1.02);
         }
         #preview table {
             border-collapse: collapse;
             width: 100%;
-            margin-bottom: 1em;
+            margin-bottom: 1.5em;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
         #preview th,
         #preview td {
-            border: 1px solid #ddd;
-            padding: 8px 12px;
+            border: 1px solid rgba(102, 126, 234, 0.15);
+            padding: 12px 16px;
             text-align: left;
         }
         #preview th {
-            background: #f0f0f0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
             font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9em;
+            letter-spacing: 0.5px;
+        }
+        #preview tr:nth-child(even) {
+            background: rgba(102, 126, 234, 0.03);
+        }
+        #preview tr:hover {
+            background: rgba(102, 126, 234, 0.08);
         }
         #preview hr {
             border: none;
-            border-top: 1px solid #ddd;
-            margin: 2em 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #667eea, transparent);
+            margin: 3em 0;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+
+        .light-theme ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
         }
     </style>
 </head>
 <body>
     <div class="header">
-        <span>Markdown Editor</span>
+        <div class="header-left">
+            <span>Markdown Editor</span>
+            <button class="theme-toggle" id="theme-toggle">
+                <span id="theme-icon">☀️</span>
+                <span id="theme-text">Light</span>
+            </button>
+        </div>
         <span id="char-counter" class="char-counter">Characters: 0</span>
     </div>
     <div class="container">
@@ -178,6 +439,8 @@ Start typing in this left pane and see the rendered output on the right.
 - **Live preview** - Changes appear instantly
 - **Full Markdown support** - Headings, lists, code blocks, and more
 - **Clean design** - Easy on the eyes
+- **Dark/Light theme** - Toggle between themes
+- **Glowing borders** - Beautiful animated borders
 
 ## Try it out!
 
@@ -206,6 +469,34 @@ function greet(name) {
         const markdownInput = document.getElementById('markdown-input');
         const preview = document.getElementById('preview');
         const charCounter = document.getElementById('char-counter');
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        const themeText = document.getElementById('theme-text');
+        const body = document.body;
+
+        // Load theme preference
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        if (savedTheme === 'light') {
+            body.classList.add('light-theme');
+            themeIcon.textContent = '🌙';
+            themeText.textContent = 'Dark';
+        }
+
+        // Theme toggle
+        themeToggle.addEventListener('click', function() {
+            body.classList.toggle('light-theme');
+            const isLight = body.classList.contains('light-theme');
+            
+            if (isLight) {
+                themeIcon.textContent = '🌙';
+                themeText.textContent = 'Dark';
+                localStorage.setItem('theme', 'light');
+            } else {
+                themeIcon.textContent = '☀️';
+                themeText.textContent = 'Light';
+                localStorage.setItem('theme', 'dark');
+            }
+        });
 
         function renderMarkdown() {
             const markdown = markdownInput.value;
@@ -216,7 +507,6 @@ function greet(name) {
             const count = markdownInput.value.length;
             charCounter.textContent = 'Characters: ' + count;
             
-            // Bug: comparing string to number without proper type conversion
             if (count > 1000) {
                 charCounter.classList.add('warning');
             } else {
