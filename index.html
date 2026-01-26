@@ -217,7 +217,7 @@ function greet(name) {
             charCounter.textContent = 'Characters: ' + count;
             
             // Bug: comparing string to number without proper type conversion
-            if (count > '1000') {
+            if (count > 1000) {
                 charCounter.classList.add('warning');
             } else {
                 charCounter.classList.remove('warning');
