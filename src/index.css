@@ -1,3 +1,135 @@
+/* ============================================================
+   Google Fonts — Inter (UI) + JetBrains Mono (editor)
+   ============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* ============================================================
+   Tailwind directives
+   ============================================================ */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* ============================================================
+   Design tokens — CSS custom properties
+   These mirror the Tailwind color tokens so they are reachable
+   from CSS contexts where utility classes cannot be used:
+   scrollbars, ::placeholder, caret-color, ::selection, etc.
+   ============================================================ */
+:root {
+  /* Editor */
+  --color-editor-bg:             #0d1117;
+  --color-editor-surface:        #161b22;
+  --color-editor-border:         #30363d;
+  --color-editor-text:           #e6edf3;
+  --color-editor-placeholder:    #484f58;
+  --color-editor-line-highlight: #1c2128;
+
+  /* Accent */
+  --color-accent-primary: #58a6ff;
+  --color-accent-hover:   #79c0ff;
+  --color-accent-muted:   #1f6feb;
+
+  /* Preview */
+  --color-preview-bg:               #0d1117;
+  --color-preview-text:             #c9d1d9;
+  --color-preview-heading:          #e6edf3;
+  --color-preview-code-bg:          #161b22;
+  --color-preview-blockquote-border: #30363d;
+
+  /* Status */
+  --color-status-warning: #f0883e;
+
+  /* Typography */
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco,
+    Consolas, 'Liberation Mono', 'Courier New', monospace;
+}
+
+/* ============================================================
+   Global base styles
+   ============================================================ */
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background-color: var(--color-editor-bg);
+    color: var(--color-editor-text);
+    font-family: var(--font-sans);
+    font-size: 14px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  #root {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Textarea / code areas — monospace */
+  textarea,
+  pre,
+  code,
+  kbd,
+  samp {
+    font-family: var(--font-mono);
+  }
+
+  /* Textarea placeholder */
+  textarea::placeholder {
+    color: var(--color-editor-placeholder);
+    opacity: 1; /* Firefox reduces opacity by default */
+  }
+
+  /* Textarea caret */
+  textarea {
+    caret-color: var(--color-accent-primary);
+  }
+
+  /* Text selection highlight */
+  ::selection {
+    background-color: var(--color-accent-muted);
+    color: var(--color-editor-text);
+  }
+
+  /* Remove default focus outline on textareas — components apply their own */
+  textarea:focus {
+    outline: none;
+  }
+}
+
+/* ============================================================
+   Custom WebKit scrollbars — thin, dark, matching the theme
+   ============================================================ */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-editor-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-editor-border);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-editor-placeholder);
+}
+
+::-webkit-scrollbar-corner {
+  background: var(--color-editor-bg);
+}
