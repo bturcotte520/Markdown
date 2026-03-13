@@ -44,7 +44,67 @@ module.exports = {
         sans: ['Inter', 'ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
         mono: ['JetBrains Mono', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', 'monospace'],
       },
+
+      typography: {
+        DEFAULT: {
+          css: {
+            color: '#c9d1d9',
+            maxWidth: 'none',
+            a: {
+              color: '#58a6ff',
+              '&:hover': { color: '#79c0ff' },
+              textDecoration: 'none',
+            },
+            h1: { color: '#e6edf3', fontWeight: '600' },
+            h2: { color: '#e6edf3', fontWeight: '600' },
+            h3: { color: '#e6edf3', fontWeight: '600' },
+            h4: { color: '#e6edf3', fontWeight: '600' },
+            h5: { color: '#e6edf3', fontWeight: '600' },
+            h6: { color: '#e6edf3', fontWeight: '600' },
+            strong: { color: '#e6edf3' },
+            code: {
+              color: '#e6edf3',
+              backgroundColor: '#161b22',
+              padding: '0.2em 0.4em',
+              borderRadius: '0.25rem',
+              fontWeight: '400',
+              '&::before': { content: 'none' },
+              '&::after': { content: 'none' },
+            },
+            pre: {
+              backgroundColor: '#161b22',
+              color: '#c9d1d9',
+              borderRadius: '0.5rem',
+              padding: '1rem 1.25rem',
+              overflowX: 'auto',
+            },
+            'pre code': {
+              backgroundColor: 'transparent',
+              padding: '0',
+              color: 'inherit',
+              fontSize: 'inherit',
+            },
+            blockquote: {
+              color: '#8b949e',
+              borderLeftColor: '#30363d',
+              fontStyle: 'normal',
+            },
+            hr: { borderColor: '#30363d' },
+            thead: {
+              borderBottomColor: '#30363d',
+            },
+            'tbody tr': {
+              borderBottomColor: '#21262d',
+            },
+            'thead th': { color: '#e6edf3' },
+            'ul > li::marker': { color: '#484f58' },
+            'ol > li::marker': { color: '#484f58' },
+          },
+        },
+      },
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/typography'),
+  ],
 };
