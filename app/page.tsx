@@ -1,7 +1,8 @@
 'use client';
 
-import { useState, ChangeEvent } from 'react';
+import { useState, useMemo, ChangeEvent } from 'react';
 import { marked } from 'marked';
+import DOMPurify from 'dompurify';
 
 const defaultMarkdown = `# Welcome to Markdown Editor
 
@@ -39,7 +40,7 @@ export default function Home() {
     setMarkdown(e.target.value);
   };
 
-  const htmlContent = marked.parse(markdown) as string;
+  const htmlContent = useMemo(() => DOMPurify.sanitize(marked.parse(markdown) as string), [markdown]);
 
   return (
     <main>
