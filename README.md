@@ -1,6 +1,6 @@
 # Markdown Editor
 
-A live Markdown editor with real-time preview and a health monitoring endpoint.
+A real-time markdown editor built with Next.js 16, React 19, and TypeScript.
 
 ## Features
 
@@ -10,22 +10,42 @@ A live Markdown editor with real-time preview and a health monitoring endpoint.
 - **Character Counter**: Track your document length
 - **Health Endpoint**: Monitor application status via `/health` endpoint
 
-## Installation
+## Tech Stack
+
+- **Framework**: Next.js 16 (App Router)
+- **UI**: React 19.2
+- **Language**: TypeScript
+- **Bundler**: Turbopack
+- **Markdown Parser**: marked
+
+## Getting Started
 
 1. Install dependencies:
 ```bash
 npm install
 ```
 
-2. Start the server:
+2. Start the development server:
+```bash
+npm run dev
+```
+
+3. Build for production:
+```bash
+npm run build
+```
+
+4. Start the production server:
 ```bash
 npm start
 ```
 
-For development with auto-reload:
-```bash
-npm run dev
-```
+## Next.js 16 Features
+
+This project uses Next.js 16 features:
+- **App Router**: Modern routing with layouts, loading states, and error handling
+- **React Compiler**: Automatic memoization and performance optimization
+- **Turbopack**: Fast bundling and hot module replacement
 
 ## Usage
 
