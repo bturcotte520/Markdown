@@ -1,6 +1,6 @@
 # Markdown Editor
 
-A real-time markdown editor built with Next.js 16, React 19, and TypeScript.
+A real-time markdown editor built with Next.js 15, React 19, and TypeScript.
 
 ## Features
 
@@ -8,11 +8,11 @@ A real-time markdown editor built with Next.js 16, React 19, and TypeScript.
 - **Full Markdown Support**: Headings, lists, code blocks, links, images, and more
 - **Clean Design**: Dark editor theme with light preview pane
 - **Character Counter**: Track your document length
-- **Health Endpoint**: Monitor application status via `/health` endpoint
+- **Health Endpoint**: Monitor application status via `/api/health` endpoint
 
 ## Tech Stack
 
-- **Framework**: Next.js 16 (App Router)
+- **Framework**: Next.js 15 (App Router)
 - **UI**: React 19.2
 - **Language**: TypeScript
 - **Bundler**: Turbopack
@@ -40,11 +40,10 @@ npm run build
 npm start
 ```
 
-## Next.js 16 Features
+## Next.js 15 Features
 
-This project uses Next.js 16 features:
+This project uses Next.js 15 features:
 - **App Router**: Modern routing with layouts, loading states, and error handling
-- **React Compiler**: Automatic memoization and performance optimization
 - **Turbopack**: Fast bundling and hot module replacement
 
 ## Usage
@@ -55,9 +54,9 @@ This project uses Next.js 16 features:
 
 ## Health Endpoint
 
-The application includes a `/health` endpoint that returns JSON status information:
+The application includes a `/api/health` endpoint that returns JSON status information:
 
-**Endpoint**: `GET /health`
+**Endpoint**: `GET /api/health`
 
 **Response**:
 ```json
@@ -75,4 +74,4 @@ The application includes a `/health` endpoint that returns JSON status informati
 - `uptime`: Server uptime in seconds
 - `service`: Service identifier
 
-You can check the health endpoint at: `http://localhost:3000/health`
+You can check the health endpoint at: `http://localhost:3000/api/health`
